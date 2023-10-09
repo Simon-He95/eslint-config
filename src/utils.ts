@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import type { ConfigItem } from './types'
+import { resolve } from 'path'
 
 /**
  * Combine array and non-array configs into a single array.
@@ -51,9 +52,10 @@ export function warnUnnecessaryOffRules() {
 }
 
 export function getEslintIgnore() {
-  if (!fs.existsSync('.eslintignore'))
+  const url = resolve(process.cwd(), '.eslintignore')
+  if (!fs.existsSync(url))
     return undefined
-  const ignores = fs.readFileSync('.eslintignore', 'utf-8')
+  const ignores = fs.readFileSync(url, 'utf-8')
   const data = ignores.split('\n').map((r) => {
     const trimmed = r.trim()
     if (/^(\/\/|#)/.test(trimmed))

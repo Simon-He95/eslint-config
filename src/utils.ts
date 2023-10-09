@@ -1,4 +1,5 @@
 import type { ConfigItem } from './types'
+import fs from 'node:fs'
 
 /**
  * Combine array and non-array configs into a single array.
@@ -47,4 +48,18 @@ export function warnUnnecessaryOffRules() {
 
   for (const off of unnecessaryOffRules)
     console.warn(`[eslint] rule \`${off}\` is never turned on, you can remove the rule from your config`)
+}
+
+
+export function getEslintIgnore(){
+  if(!fs.existsSync('.eslintignore'))
+    return undefined
+  const ignores =  fs.readFileSync('.eslintignore','utf-8')
+  const data = ignores.split('\n').map(r=>{
+    const trimmed = r.trim()
+    if(/^(\/\/|#)/.test(trimmed))
+      return false
+    return trimmed
+  }).filter(Boolean)
+  return data as string[]
 }

@@ -21,7 +21,7 @@ import {
   vue,
   yaml,
 } from './configs'
-import { combine } from './utils'
+import { combine, getEslintIgnore } from './utils'
 
 const flatConfigProps: (keyof ConfigItem)[] = [
   'files',
@@ -44,7 +44,7 @@ const VuePackages = [
 /**
  * Construct an array of ESLint flat config items.
  */
-export function antfu(options: OptionsConfig & ConfigItem = {}, ...userConfigs: (ConfigItem | ConfigItem[])[]) {
+export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfigs: (ConfigItem | ConfigItem[])[]) {
   const {
     isInEditor = !!((process.env.VSCODE_PID || process.env.JETBRAINS_IDE) && !process.env.CI),
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
@@ -146,16 +146,21 @@ export function antfu(options: OptionsConfig & ConfigItem = {}, ...userConfigs: 
     }))
   }
 
+  // const globalEslintIgnore = 
+  const userEslintIgnores = getEslintIgnore()
   // User can optionally pass a flat config item to the first argument
   // We pick the known keys as ESLint would do schema validation
   const fusedConfig = flatConfigProps.reduce((acc, key) => {
-    if (key in options)
+    if (key in options) {
       acc[key] = options[key] as any
+    }
+    if (userEslintIgnores && key === 'ignores') {
+      acc[key] = Array.from(new Set([...userEslintIgnores, ...(options[key] || [])]))
+    }
     return acc
   }, {} as ConfigItem)
   if (Object.keys(fusedConfig).length)
     configs.push([fusedConfig])
-
   const merged = combine(
     ...configs,
     ...userConfigs,

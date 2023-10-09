@@ -81,12 +81,12 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
     devDependencies:
-      '@antfu/eslint-config':
-        specifier: workspace:*
-        version: 'link:'
       '@antfu/ni':
         specifier: ^0.21.8
         version: 0.21.8
+      '@simon_he/eslint-config':
+        specifier: workspace:*
+        version: 'link:'
       '@stylistic/eslint-plugin-migrate':
         specifier: ^0.1.1
         version: 0.1.1(eslint@8.52.0)(typescript@5.2.2)

@@ -54,7 +54,6 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
     overrides = {},
     componentExts = [],
   } = options
-
   const configs: ConfigItem[][] = []
 
   if (enableGitignore) {

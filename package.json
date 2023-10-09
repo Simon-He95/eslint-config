@@ -1,13 +1,17 @@
 {
-  "name": "@antfu/eslint-config",
+  "name": "@simon_he/eslint-config",
   "type": "module",
-  "version": "1.0.0-beta.28",
-  "packageManager": "pnpm@8.9.2",
+  "version": "0.0.0",
+  "packageManager": "pnpm@8.8.0",
   "description": "Anthony's ESLint config",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/antfu/)",
+  "author": "Simon He",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git + git@github.com:Simon-He95/eslint-config.git"
+  },
   "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/eslint-config",
+  "homepage": "https://github.com/Simon-He95/eslint-config",
   "keywords": [
     "eslint-config"
   ],
@@ -63,7 +67,7 @@
     "yaml-eslint-parser": "^1.2.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "workspace:*",
+    "@simon_he/eslint-config": "workspace:*",
     "@antfu/ni": "^0.21.8",
     "@stylistic/eslint-plugin-migrate": "^0.1.1",
     "@types/eslint": "^8.44.6",

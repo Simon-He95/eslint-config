@@ -60,7 +60,7 @@ function runWithConfig(name: string, configs: OptionsConfig, ...items: ConfigIte
     })
     await fs.writeFile(join(target, 'eslint.config.js'), `
 // @eslint-disable
-import antfu from '@antfu/eslint-config'
+import antfu from '@simon_he/eslint-config'
 
 export default antfu(
   ${JSON.stringify(configs)},

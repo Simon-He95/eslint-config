@@ -153,13 +153,11 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
     if (key in options)
       acc[key] = options[key] as any
 
-    if (userEslintIgnores && key === 'ignores')
-      acc[key] = Array.from(new Set([...userEslintIgnores, ...(options[key] || [])]))
-
     return acc
   }, {} as ConfigItem)
   if (Object.keys(fusedConfig).length)
     configs.push([fusedConfig])
+
   const merged = combine(
     ...configs,
     ...userConfigs,
@@ -168,5 +166,10 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
   // recordRulesStateConfigs(merged)
   // warnUnnecessaryOffRules()
 
-  return merged
+  return userEslintIgnores
+    ? merged.map((config: any) => {
+      config.ignores = [...new Set([...userEslintIgnores, ...(config.ignores || [])])]
+      return config
+    })
+    : merged
 }

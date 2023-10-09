@@ -6,12 +6,12 @@
   "description": "Anthony's ESLint config",
   "author": "Simon He",
   "license": "MIT",
+  "funding": "https://github.com/sponsors/antfu",
+  "homepage": "https://github.com/Simon-He95/eslint-config",
   "repository": {
     "type": "git",
     "url": "git + git@github.com:Simon-He95/eslint-config.git"
   },
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/Simon-He95/eslint-config",
   "keywords": [
     "eslint-config"
   ],
@@ -66,8 +66,8 @@
     "yaml-eslint-parser": "^1.2.2"
   },
   "devDependencies": {
-    "@simon_he/eslint-config": "workspace:*",
     "@antfu/ni": "^0.21.8",
+    "@simon_he/eslint-config": "workspace:*",
     "@stylistic/eslint-plugin-migrate": "^0.0.6",
     "@types/eslint": "^8.44.3",
     "@types/fs-extra": "^11.0.2",

@@ -1,6 +1,7 @@
 import fs from 'node:fs'
+import { resolve } from 'node:path'
+import process from 'node:process'
 import type { ConfigItem } from './types'
-import { resolve } from 'path'
 
 /**
  * Combine array and non-array configs into a single array.

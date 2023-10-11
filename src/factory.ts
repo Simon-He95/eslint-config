@@ -49,11 +49,19 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
     isInEditor = !!((process.env.VSCODE_PID || process.env.JETBRAINS_IDE) && !process.env.CI),
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
     typescript: enableTypeScript = isPackageExists('typescript'),
-    stylistic: enableStylistic = true,
     gitignore: enableGitignore = true,
     overrides = {},
     componentExts = [],
   } = options
+
+  const stylisticOptions = options.stylistic === false
+    ? false
+    : typeof options.stylistic === 'object'
+      ? options.stylistic
+      : {}
+  if (stylisticOptions && !('jsx' in stylisticOptions))
+    stylisticOptions.jsx = options.jsx ?? true
+
   const configs: ConfigItem[][] = []
 
   if (enableGitignore) {
@@ -76,10 +84,10 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
     comments(),
     node(),
     jsdoc({
-      stylistic: enableStylistic,
+      stylistic: stylisticOptions,
     }),
     imports({
-      stylistic: enableStylistic,
+      stylistic: stylisticOptions,
     }),
     unicorn(),
   )
@@ -97,13 +105,8 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
     }))
   }
 
-  if (enableStylistic) {
-    configs.push(stylistic(
-      typeof enableStylistic === 'boolean'
-        ? {}
-        : enableStylistic,
-    ))
-  }
+  if (stylisticOptions)
+    configs.push(stylistic(stylisticOptions))
 
   if (options.test ?? true) {
     configs.push(test({
@@ -115,7 +118,7 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
   if (enableVue) {
     configs.push(vue({
       overrides: overrides.vue,
-      stylistic: enableStylistic,
+      stylistic: stylisticOptions,
       typescript: !!enableTypeScript,
     }))
   }
@@ -124,7 +127,7 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
     configs.push(
       jsonc({
         overrides: overrides.jsonc,
-        stylistic: enableStylistic,
+        stylistic: stylisticOptions,
       }),
       sortPackageJson(),
       sortTsconfig(),
@@ -134,7 +137,7 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
   if (options.yaml ?? true) {
     configs.push(yaml({
       overrides: overrides.yaml,
-      stylistic: enableStylistic,
+      stylistic: stylisticOptions,
     }))
   }
 
@@ -145,14 +148,13 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
     }))
   }
 
-  // const globalEslintIgnore =
+  // global .eslintignore
   const userEslintIgnores = getEslintIgnore()
   // User can optionally pass a flat config item to the first argument
   // We pick the known keys as ESLint would do schema validation
   const fusedConfig = flatConfigProps.reduce((acc, key) => {
     if (key in options)
       acc[key] = options[key] as any
-
     return acc
   }, {} as ConfigItem)
   if (Object.keys(fusedConfig).length)

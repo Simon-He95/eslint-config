@@ -5,6 +5,7 @@ export function stylistic(options: StylisticConfig = {}): ConfigItem[] {
   const {
     indent = 2,
     quotes = 'single',
+    jsx = true,
   } = options
 
   return [
@@ -20,8 +21,8 @@ export function stylistic(options: StylisticConfig = {}): ConfigItem[] {
         'antfu/top-level-function': 'error',
 
         'curly': ['error', 'multi-or-nest', 'consistent'],
-        'style/array-bracket-spacing': ['error', 'never'],
 
+        'style/array-bracket-spacing': ['error', 'never'],
         'style/arrow-spacing': ['error', { after: true, before: true }],
         'style/block-spacing': ['error', 'always'],
         'style/brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
@@ -69,7 +70,7 @@ export function stylistic(options: StylisticConfig = {}): ConfigItem[] {
           offsetTernaryExpressions: true,
           outerIIFEBody: 1,
         }],
-        'style/jsx-quotes': 'error',
+
         'style/key-spacing': ['error', { afterColon: true, beforeColon: false }],
         'style/keyword-spacing': ['error', { after: true, before: true }],
         'style/lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
@@ -123,6 +124,45 @@ export function stylistic(options: StylisticConfig = {}): ConfigItem[] {
         'style/type-annotation-spacing': ['error', {}],
         'style/wrap-iife': ['error', 'any', { functionPrototypeMethods: true }],
         'style/yield-star-spacing': ['error', 'both'],
+
+        ...jsx
+          ? {
+              'style/jsx-child-element-spacing': 'error',
+              'style/jsx-closing-bracket-location': 'error',
+              'style/jsx-closing-tag-location': 'error',
+              'style/jsx-curly-brace-presence': ['error', { propElementValues: 'always' }],
+              'style/jsx-curly-newline': 'error',
+              'style/jsx-curly-spacing': ['error', 'never'],
+              'style/jsx-equals-spacing': 'error',
+              'style/jsx-first-prop-new-line': 'error',
+              'style/jsx-indent': ['error', indent, { checkAttributes: true, indentLogicalExpressions: true }],
+              'style/jsx-indent-props': ['error', indent],
+              'style/jsx-max-props-per-line': ['error', { maximum: 1, when: 'multiline' }],
+              'style/jsx-one-expression-per-line': ['error', { allow: 'single-child' }],
+              'style/jsx-quotes': 'error',
+              'style/jsx-tag-spacing': [
+                'error',
+                {
+                  afterOpening: 'never',
+                  beforeClosing: 'never',
+                  beforeSelfClosing: 'always',
+                  closingSlash: 'never',
+                },
+              ],
+              'style/jsx-wrap-multilines': [
+                'error',
+                {
+                  arrow: 'parens-new-line',
+                  assignment: 'parens-new-line',
+                  condition: 'parens-new-line',
+                  declaration: 'parens-new-line',
+                  logical: 'parens-new-line',
+                  prop: 'parens-new-line',
+                  return: 'parens-new-line',
+                },
+              ],
+            }
+          : {},
       },
     },
   ]

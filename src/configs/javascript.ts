@@ -1,7 +1,6 @@
 import globals from 'globals'
 import type { ConfigItem, OptionsIsInEditor, OptionsOverrides } from '../types'
 import { pluginAntfu, pluginUnusedImports } from '../plugins'
-import { OFF } from '../flags'
 import { GLOB_SRC, GLOB_SRC_EXT } from '../globs'
 
 export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): ConfigItem[] {
@@ -30,6 +29,9 @@ export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): 
           sourceType: 'module',
         },
         sourceType: 'module',
+      },
+      linterOptions: {
+        reportUnusedDisableDirectives: true,
       },
       name: 'antfu:javascript',
       plugins: {
@@ -200,7 +202,7 @@ export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): 
 
         'symbol-description': 'error',
         'unicode-bom': ['error', 'never'],
-        'unused-imports/no-unused-imports': isInEditor ? OFF : 'error',
+        'unused-imports/no-unused-imports': isInEditor ? 'off' : 'error',
 
         'unused-imports/no-unused-vars': [
           'error',
@@ -218,7 +220,7 @@ export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): 
       files: [`scripts/${GLOB_SRC}`, `cli.${GLOB_SRC_EXT}`],
       name: 'antfu:scripts-overrides',
       rules: {
-        'no-console': OFF,
+        'no-console': 'off',
       },
     },
   ]

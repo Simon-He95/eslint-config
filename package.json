@@ -1,7 +1,7 @@
 {
   "name": "@simon_he/eslint-config",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "packageManager": "pnpm@8.9.0",
   "description": "Anthony's ESLint config",
   "author": "Simon He",

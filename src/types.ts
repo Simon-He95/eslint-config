@@ -141,6 +141,15 @@ export interface OptionsConfig extends OptionsComponentExts {
   jsx?: boolean
 
   /**
+   * Enable JSX related rules.
+   *
+   * Currently only stylistic rules are included.
+   *
+   * @default true
+   */
+  jsx?: boolean
+
+  /**
    * Enable test support.
    *
    * @default true

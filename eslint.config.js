@@ -1,5 +1,4 @@
 // @ts-check
-import sortKeys from 'eslint-plugin-sort-keys'
 import styleMigrate from '@stylistic/eslint-plugin-migrate'
 import simon_he from './dist/index.js'
 
@@ -14,9 +13,6 @@ export default simon_he(
   },
   {
     files: ['src/**/*.ts'],
-    plugins: {
-      'sort-keys': sortKeys,
-    },
     rules: {
       'sort-keys/sort-keys-fix': 'error',
     },

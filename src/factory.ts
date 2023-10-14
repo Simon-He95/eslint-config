@@ -12,6 +12,7 @@ import {
   jsonc,
   markdown,
   node,
+  sortKeys,
   sortPackageJson,
   sortTsconfig,
   stylistic,
@@ -90,6 +91,7 @@ export function simon_he(options: OptionsConfig & ConfigItem = {}, ...userConfig
       stylistic: stylisticOptions,
     }),
     unicorn(),
+    sortKeys(),
   )
 
   if (enableVue)

@@ -15,14 +15,14 @@ Based on [antfu's eslint-config](https://github.com/antfu/eslint-config) modific
 - **Style principle**: Minimal for reading, stable for diff, consistent
 
 > [!IMPORTANT]
-> The main branch is for v1.0-beta, which rewrites to ESLint Flat config, check [#250](https://github.com/antfu/eslint-config/pull/250) for more details.
+> The main branch is for v1.0-beta, which rewrites to the new [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), check [#250](https://github.com/antfu/eslint-config/pull/250) for more details.
 
 ## Usage
 
 ### Install
 
 ```bash
-pnpm i -D eslint @simon_he/eslint-config
+pnpm i -D eslint @antfu/eslint-config
 ```
 
 ### Create config file
@@ -31,18 +31,18 @@ With [`"type": "module"`](https://nodejs.org/api/packages.html#type) in `package
 
 ```js
 // eslint.config.js
-import simon_he from '@simon_he/eslint-config'
+import antfu from '@antfu/eslint-config'
 
-export default simon_he()
+export default antfu()
 ```
 
 With CJS:
 
 ```js
 // eslint.config.js
-const simon_he = require('@simon_he/eslint-config').default
+const antfu = require('@antfu/eslint-config').default
 
-module.exports = simon_he()
+module.exports = antfu()
 ```
 
 > Note that `.eslintignore` no longer works in Flat config, see [customization](#customization) for more details.
@@ -118,7 +118,7 @@ Normally you only need to import the `antfu` preset:
 
 ```js
 // eslint.config.js
-import antfu from '@simon_he/eslint-config'
+import antfu from '@antfu/eslint-config'
 
 export default antfu()
 ```
@@ -127,7 +127,7 @@ And that's it! Or you can configure each integration individually, for example:
 
 ```js
 // eslint.config.js
-import antfu from '@simon_he/eslint-config'
+import antfu from '@antfu/eslint-config'
 
 export default antfu({
   // Enable stylistic formatting rules
@@ -159,7 +159,7 @@ The `antfu` factory function also accepts any number of arbitrary custom config 
 
 ```js
 // eslint.config.js
-import antfu from '@simon_he/eslint-config'
+import antfu from '@antfu/eslint-config'
 
 export default antfu(
   {
@@ -198,7 +198,7 @@ import {
   unicorn,
   vue,
   yaml,
-} from '@simon_he/eslint-config'
+} from '@antfu/eslint-config'
 
 export default [
   ...ignores(),
@@ -221,7 +221,7 @@ Check out the [configs](https://github.com/antfu/eslint-config/blob/main/src/con
 
 > Thanks to [sxzz/eslint-config](https://github.com/sxzz/eslint-config) for the inspiration and reference.
 
-## Plugins Renaming
+### Plugins Renaming
 
 Since flat config requires us to explicitly provide the plugin names (instead of mandatory convention from npm package name), we renamed some plugins to make overall scope more consistent and easier to write.
 
@@ -243,13 +243,36 @@ When you want to override rules, or disable them inline, you need to update to t
 type foo = { bar: 2 }
 ```
 
+### Optional Rules
+
+This config also provides some optional plugins/rules for extended usages.
+
+#### `sort-keys`
+
+This plugin [`eslint-plugin-sort-keys`](https://github.com/namnm/eslint-plugin-sort-keys) allows you to keep object keys sorted with auto-fix.
+
+It's installed but no rules are enabled by default. 
+
+It's recommended to opt-in on each file individually using [configuration comments](https://eslint.org/docs/latest/use/configure/rules#using-configuration-comments-1).
+
+```js
+/* eslint sort-keys/sort-keys-fix: "error" */
+const objectWantedToSort = {
+  a: 2,
+  b: 1,
+  c: 3,
+}
+/* eslint sort-keys/sort-keys-fix: "off" */
+```
+
+
 ### Rules Overrides
 
 Certain rules would only be enabled in specific files, for example, `ts/*` rules would only be enabled in `.ts` files and `vue/*` rules would only be enabled in `.vue` files. If you want to override the rules, you need to specify the file extension:
 
 ```js
 // eslint.config.js
-import antfu from '@simon_he/eslint-config'
+import antfu from '@antfu/eslint-config'
 
 export default antfu(
   { vue: true, typescript: true },
@@ -273,7 +296,7 @@ We also provided an `overrides` options to make it easier:
 
 ```js
 // eslint.config.js
-import antfu from '@simon_he/eslint-config'
+import antfu from '@antfu/eslint-config'
 
 export default antfu({
   overrides: {
@@ -295,7 +318,7 @@ You can optionally enable the [type aware rules](https://typescript-eslint.io/li
 
 ```js
 // eslint.config.js
-import antfu from '@simon_he/eslint-config'
+import antfu from '@antfu/eslint-config'
 
 export default antfu({
   typescript: {

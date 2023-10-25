@@ -68,11 +68,11 @@
   },
   "devDependencies": {
     "@antfu/ni": "^0.21.8",
+    "@simon_he/eslint-config": "workspace:*",
     "@stylistic/eslint-plugin-migrate": "^0.1.1",
     "@types/eslint": "^8.44.6",
     "@types/fs-extra": "^11.0.3",
     "@types/node": "^20.8.7",
-    "@simon_he/eslint-config": "workspace:*",
     "bumpp": "^9.2.0",
     "eslint": "^8.52.0",
     "eslint-flat-config-viewer": "^0.1.0",
